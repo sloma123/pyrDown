@@ -1,19 +1,22 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-      {
-          "label": "build all",
-          "type": "shell",
-          // ZMIANA: Cała komenda w jednej linii, używamy $() zamiast backticków dla pewności
-          "command": "g++ -g main.cpp -o main $(pkg-config --cflags --libs opencv4)",
-          "group": {
-              "kind": "build",
-              "isDefault": true
-          },
-          "problemMatcher": [
-              "$gcc"
-          ],
-          "detail": "Kompilacja bezpośrednia w powłoce"
-      }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build_cuda",
+            "type": "shell",
+            "command": "/usr/local/cuda/bin/nvcc",
+            "args": [
+                "-g",              
+                "${file}",        
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$nvcc",
+            "detail": "Kompilacja za pomocą NVCC"
+        }
+    ]
 }
